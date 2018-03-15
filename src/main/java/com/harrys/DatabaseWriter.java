@@ -1,3 +1,5 @@
+package com.harrys;
+
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.Session;
 import java.util.List;
@@ -14,16 +16,16 @@ class DatabaseWriter {
 
         while (rowCount < numberOfRowsToPopulate) {
             insert = buildPopulatedWithRandomValuesStatement(baseStatement, session, columns);
-            logger.info("Running query: " + insert.getQueryString());
+            logger.debug("Running query: " + insert.getQueryString());
 
             if (session.execute(insert.bind()).wasApplied()) {
                 rowCount++;
-                logger.info("Processed entries: " + rowCount);
+                logger.debug("Number of processed entries: " + rowCount);
             } else {
-                logger.warn("Entry already in DB");
+                logger.warn("Entry already in DB: " + insert.getQueryString());
             }
         }
-        logger.info("All rows have been populated");
+        logger.info("All " + rowCount + " rows have been written");
     }
 
     private PreparedStatement buildPopulatedWithRandomValuesStatement(String baseStatement, Session session, List<Column> columns) {

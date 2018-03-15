@@ -1,3 +1,5 @@
+package com.harrys;
+
 import nl.flotsam.xeger.Xeger;
 
 class Column {
