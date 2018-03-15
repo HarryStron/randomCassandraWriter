@@ -18,6 +18,9 @@ class DatabaseWriter {
 
             if (session.execute(insert.bind()).wasApplied()) {
                 rowCount++;
+                logger.info("Processed entries: " + rowCount);
+            } else {
+                logger.warn("Entry already in DB");
             }
         }
         logger.info("All rows have been populated");
@@ -30,7 +33,7 @@ class DatabaseWriter {
         for (Column column : columns) {
             sbValues.append(prefix);
             prefix = ",";
-            sbValues.append(column.generateRandomValue());
+            sbValues.append("'"+column.generateRandomValue()+"'");
         }
         sbValues.append(")");
 
