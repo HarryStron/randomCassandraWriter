@@ -33,7 +33,7 @@ class DatabaseWriter {
         for (Column column : columns) {
             sbValues.append(prefix);
             prefix = ",";
-            sbValues.append("'"+column.generateRandomValue()+"'");
+            sbValues.append(column.generateRandomValue());
         }
         sbValues.append(")");
 
